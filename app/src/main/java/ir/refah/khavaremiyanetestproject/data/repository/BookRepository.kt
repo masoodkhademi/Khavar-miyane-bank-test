@@ -2,6 +2,7 @@ package ir.refah.khavaremiyanetestproject.data.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import ir.refah.khavaremiyanetestproject.constants.Constants
 import ir.refah.khavaremiyanetestproject.model.TestBook
 import ir.refah.khavaremiyanetestproject.network.retrofit.NetworkResponseCallback
 import ir.refah.khavaremiyanetestproject.network.retrofit.RetrofitInstance
@@ -29,13 +30,14 @@ class BookRepository {
 
     private lateinit var bookCallback: Call<TestBook>
 
-    fun getBooks(callback: NetworkResponseCallback): MutableLiveData<TestBook> {
+    fun getBooks(callback: NetworkResponseCallback,title:String): MutableLiveData<TestBook> {
         mCallback = callback
-        if (bookList.value!=null) {
-            mCallback.onNetworkSuccess()
-            return bookList
-        }
-        bookCallback = RetrofitInstance.getInstance().getApiService().getBooks()
+//        if (bookList.value!=null) {
+//            mCallback.onNetworkSuccess()
+//            return bookList
+//        }
+        Log.i("=============>", "title:"+title)
+        bookCallback = RetrofitInstance.getInstance().getApiService().getBooks(title,Constants.API_KEY)
         bookCallback.enqueue(object : Callback<TestBook> {
 
             override fun onResponse(

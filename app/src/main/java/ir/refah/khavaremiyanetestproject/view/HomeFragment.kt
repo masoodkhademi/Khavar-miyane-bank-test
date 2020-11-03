@@ -1,6 +1,7 @@
 package ir.refah.khavaremiyanetestproject.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,7 @@ class HomeFragment : Fragment() ,(Book) -> Unit{
         val adapter = BookAdapter(mViewModel.mlist.value?.results?.books,this)
 
         mViewModel.fetchBooksFromServer(requireContext()).observe(viewLifecycleOwner, Observer {
+//            Log.i("============>", "onCreateView: "+it.toString())
             adapter.setData(it?.results?.books)
         })
 
@@ -56,7 +58,12 @@ class HomeFragment : Fragment() ,(Book) -> Unit{
             }
         })
 
+        mViewModel.editTitle.observe(viewLifecycleOwner, Observer {
+            mViewModel.fetchBooksFromServer(requireContext())
+        })
+
         binding.recyclerView.adapter = adapter
+        binding.bookViewModel=mViewModel;
         return binding.root
     }
 

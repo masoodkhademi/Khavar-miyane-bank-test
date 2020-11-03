@@ -19,6 +19,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     private var _mList = MutableLiveData<TestBook>()
     val mlist: LiveData<TestBook>
         get() = _mList
+     var _editTitle = MutableLiveData<String?>()
+    val editTitle: LiveData<String?>
+        get() = _editTitle
     var mShowProgressBar: MutableLiveData<Boolean> = MutableLiveData()
     private var mShowNetworkError: MutableLiveData<Boolean> = MutableLiveData()
     private var mShowApiError: MutableLiveData<Boolean> = MutableLiveData()
@@ -42,7 +45,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
                     Log.i("==========>", "onNetworkSuccess:")
                     mShowProgressBar.value = false
                 }
-            }).value)
+            },_editTitle.value.toString()).value)
         } else {
             Log.i("==========>", "fetchBooksFromServer: Error network")
             mShowNetworkError.value = true
@@ -53,4 +56,6 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     fun onRefreshClicked(view: View) {
         fetchBooksFromServer(view.context)
     }
+
+
 }

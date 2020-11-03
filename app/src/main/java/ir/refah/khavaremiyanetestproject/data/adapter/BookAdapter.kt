@@ -1,5 +1,6 @@
 package ir.refah.khavaremiyanetestproject.data.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ class BookAdapter(var mList: List<Book>?, private val mListener: (Book) -> Unit)
             parent,
             false
         )
+        Log.i("===========>", "onCreateViewHolder:"+viewType)
         return ViewHolder(binding)
     }
 
@@ -36,6 +38,7 @@ class BookAdapter(var mList: List<Book>?, private val mListener: (Book) -> Unit)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemBinding.book = mList!!.get(position)
+        holder.itemBinding.notifyChange()
         holder.itemView.setOnClickListener {
             mList!!.get(position)?.let { it1 -> mListener.invoke(it1) }
         }

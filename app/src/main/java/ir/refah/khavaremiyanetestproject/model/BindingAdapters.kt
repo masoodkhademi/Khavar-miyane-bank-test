@@ -1,8 +1,10 @@
 package ir.refah.khavaremiyanetestproject.model
 
 import android.app.Activity
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
 
 object BindingAdapters {
@@ -14,4 +16,6 @@ object BindingAdapters {
             .into(imageView)
 
     }
+
+
 }
